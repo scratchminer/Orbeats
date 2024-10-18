@@ -38,7 +38,8 @@ songData.json files follow this specific format:
 	],
 	"beatOffset":#,
 	"preview":#
-}```
+}
+```
 
 Any attribute followed by a # takes a number as input, and any attribute followed by "" takes a string.
 
@@ -99,7 +100,8 @@ A custom map for a song is stored as a .json file, following this overall struct
 		]
 	},
 	"songEnd":#
-}```
+}
+```
 
 Any attribute followed by a # takes a number as input, and any attribute followed by "" takes a string.
  - **notes** - List of note objects.
