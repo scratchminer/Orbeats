@@ -55,6 +55,13 @@ local init = true
 local paramSelection = 1
 local oldParamSelection = paramSelection
 
+local adjustingNumber = false
+local prevAdjustingNumber = false
+local menuFill = true
+
+local oldValue = 0
+local newValue = 0
+
 local oldText = ""
 
 local function keyboardClosing(confirmed)
@@ -65,6 +72,8 @@ local function keyboardClosing(confirmed)
 		editorData[songList[songSelectionRounded]].songData[songDataOrder[paramSelection]] = oldText
 		readSongData()
 	end
+	
+	sfx.switch:play()
 end
 
 function updateSongDataEditor()
@@ -74,7 +83,8 @@ function updateSongDataEditor()
 		init = false
 	end
 	
-	if not kb.isVisible() then
+	menuFill = not prevAdjustingNumber and not kb.isVisible()
+	if menuFill then
 		if bPressed then
 			sfx.switch:play()
 			init = false
@@ -86,6 +96,12 @@ function updateSongDataEditor()
 				oldText = songData[songDataOrder[paramSelection]]
 				kb.show(oldText)
 				kb.keyboardWillHideCallback = keyboardClosing
+				sfx.tap:play()
+			elseif type(songData[songDataOrder[paramSelection]]) == "number" then
+				oldValue = songData[songDataOrder[paramSelection]]
+				newValue = oldValue
+				adjustingNumber = true
+				sfx.tap:play()
 			end
 		end
 		if downPressed then
@@ -95,6 +111,7 @@ function updateSongDataEditor()
 			paramSelection -= 1
 		end
 	end
+	
 	-- round param selection
 	paramSelection = math.min(#songDataText, math.max(paramSelection, 1))
 	if oldParamSelection ~= paramSelection then
@@ -110,6 +127,32 @@ function updateSongDataEditor()
 		end
 	end
 	
+	if prevAdjustingNumber then
+		if bPressed then
+			editorData[songList[songSelectionRounded]].songData[songDataOrder[paramSelection]] = oldValue
+			sfx.switch:play()
+			adjustingNumber = false
+		end
+		if aPressed then
+			sfx.switch:play()
+			adjustingNumber = false
+		end
+		if downPressed then
+			newValue -= 1
+			sfx.click:play()
+			editorData[songList[songSelectionRounded]].songData[songDataOrder[paramSelection]] = newValue
+		end
+		if upPressed then
+			newValue += 1
+			sfx.click:play()
+			editorData[songList[songSelectionRounded]].songData[songDataOrder[paramSelection]] = newValue
+		end
+		
+		readSongData()
+	end
+	
+	prevAdjustingNumber = adjustingNumber
+	
 	return "songDataEditor"
 end
 
@@ -117,5 +160,5 @@ function drawSongDataEditor()
 	gfx.clear()
 	
 	-- draw the list of song data parameters
-	drawList(songDataText, paramSelection, 3, 3, 394, 234, 3, fonts.orbeatsSans, true, false)
+	drawList(songDataText, paramSelection, 3, 3, 394, 234, 3, fonts.orbeatsSans, menuFill, false)
 end
