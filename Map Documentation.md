@@ -23,30 +23,12 @@ Create a new song, you'll need to create a folder for it's files (what will be r
 ### Creating the songData.json file
 songData.json files follow this specific format:
 
-<<<<<<< HEAD
-```JSON
-{
-=======
 ```{
->>>>>>> 59f3bf5 (modify the MD indentation)
 	"name":"",
 	"artist":"",
 	"difficulties":[
 		""
 	],
-<<<<<<< HEAD
-	"bpm":0,
-	"bpmChanges":[
-		{
-			"beat":0,
-			"bpm":0
-		}
-	],
-	"beatOffset":0,
-	"preview":0
-}
-```
-=======
 	"bpm":#,
 	"bpmChanges":[
 		{
@@ -56,8 +38,8 @@ songData.json files follow this specific format:
 	],
 	"beatOffset":#,
 	"preview":#
-}```
->>>>>>> 59f3bf5 (modify the MD indentation)
+}
+```
 
 Any attribute followed by a 0 takes a number as input, and any attribute followed by "" takes a string.
 
@@ -121,7 +103,8 @@ A custom map for a song is stored as a .json file, following this overall struct
 		]
 	},
 	"songEnd":#
-}```
+}
+```
 
 Any attribute followed by a # takes a number as input, and any attribute followed by "" takes a string.
  - **notes** - List of note objects.
