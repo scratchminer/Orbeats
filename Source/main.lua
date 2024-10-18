@@ -73,7 +73,7 @@ local gameState = "title"
 local oldGameState = gameState
 
 local function draw()
-
+	
 	if gameState == "song" then
 		gfx.clear()
 		drawSong()
@@ -109,11 +109,11 @@ local function draw()
 		gfx.clear(gfx.kColorBlack)
 		drawTitleScreen()
 	end
-
+	
 	if settings.drawFps then
 		pd.drawFPS(screenWidth-15, screenHeight-12)
 	end
-
+	
 end
 
 pd.resetElapsedTime()
@@ -126,7 +126,7 @@ function pd.update()
 	-- update play time
 	stats.playTime += pd.getElapsedTime()
 	pd.resetElapsedTime()
-
+	
 	-- save stats if changing game state
 	if gameState ~= oldGameState then
 		pd.datastore.write(stats, "stats")
@@ -135,7 +135,7 @@ function pd.update()
 	
 	-- reset system menu items
 	menu:removeAllMenuItems()
-
+	
 	-- update the current game state
 	if gameState == "song" then
 		gameState = updateSong()
@@ -162,9 +162,9 @@ function pd.update()
 	else
 		gameState = updateTitleScreen()
 	end
-
+	
 	draw()
-
+	
 end
 
 function pd.gameWillTerminate()

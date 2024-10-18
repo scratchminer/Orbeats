@@ -23,22 +23,22 @@ Create a new song, you'll need to create a folder for it's files (what will be r
 ### Creating the songData.json file
 songData.json files follow this specific format:
 
-	     {
-		     "name":"",
-		     "artist":"",
-		     "difficulties":[
+		{
+			"name":"",
+			"artist":"",
+			"difficulties":[
 			   	 ""
-		     ],
-		     "bpm":#,
-			 "bpmChanges":[
-			 	{
+			],
+			"bpm":#,
+			"bpmChanges":[
+				{
 			 		"beat":#,
 					"bpm":#
-			 	}
-			 ],
-		   	 "beatOffset":#,
-		   	 "preview":#
-	     }
+				}
+			],
+		   	"beatOffset":#,
+		   	"preview":#
+		 }
 
 Any attribute followed by a # takes a number as input, and any attribute followed by "" takes a string.
 
