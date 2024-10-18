@@ -53,7 +53,8 @@ end
 local init = true
 
 local paramSelection = 1
-local oldParamSelection = paramSelection
+local paramSelectionRounded = 1
+local oldParamSelection = paramSelectionRounded
 
 local adjustingNumber = false
 local prevAdjustingNumber = false
@@ -61,15 +62,16 @@ local menuFill = true
 
 local oldValue = 0
 local newValue = 0
+local newValueRounded = 0
 
 local oldText = ""
 
 local function keyboardClosing(confirmed)
 	if confirmed then
-		editorData[songList[songSelectionRounded]].songData[songDataOrder[paramSelection]] = kb.text
+		editorData[songList[songSelectionRounded]].songData[songDataOrder[paramSelectionRounded]] = kb.text
 		readSongData()
 	else
-		editorData[songList[songSelectionRounded]].songData[songDataOrder[paramSelection]] = oldText
+		editorData[songList[songSelectionRounded]].songData[songDataOrder[paramSelectionRounded]] = oldText
 		readSongData()
 	end
 	
@@ -92,14 +94,15 @@ function updateSongDataEditor()
 			return "songSelect"
 		end
 		if aPressed then
-			if type(songData[songDataOrder[paramSelection]]) == "string" then
-				oldText = songData[songDataOrder[paramSelection]]
+			if type(songData[songDataOrder[paramSelectionRounded]]) == "string" then
+				oldText = songData[songDataOrder[paramSelectionRounded]]
 				kb.show(oldText)
 				kb.keyboardWillHideCallback = keyboardClosing
 				sfx.tap:play()
-			elseif type(songData[songDataOrder[paramSelection]]) == "number" then
-				oldValue = songData[songDataOrder[paramSelection]]
+			elseif type(songData[songDataOrder[paramSelectionRounded]]) == "number" then
+				oldValue = songData[songDataOrder[paramSelectionRounded]]
 				newValue = oldValue
+				newValueRounded = oldValue
 				adjustingNumber = true
 				sfx.tap:play()
 			end
@@ -110,29 +113,27 @@ function updateSongDataEditor()
 		if upPressed then
 			paramSelection -= 1
 		end
+		
+		paramSelection += crankChange/90
 	end
 	
 	-- round param selection
 	paramSelection = math.min(#songDataText, math.max(paramSelection, 1))
-	if oldParamSelection ~= paramSelection then
+	paramSelectionRounded = round(paramSelection)
+	if oldParamSelection ~= paramSelectionRounded then
 		sfx.click:play()
-		oldParamSelection = paramSelection
+		oldParamSelection = paramSelectionRounded
 	end
 	
 	-- update the selected parameter to match what the keyboard has typed
 	if kb.isVisible() then
-		if type(songData[songDataOrder[paramSelection]]) == "string" then
-			editorData[songList[songSelectionRounded]].songData[songDataOrder[paramSelection]] = kb.text
+		if type(songData[songDataOrder[paramSelectionRounded]]) == "string" then
+			editorData[songList[songSelectionRounded]].songData[songDataOrder[paramSelectionRounded]] = kb.text
 			readSongData()
 		end
 	end
 	
 	if prevAdjustingNumber then
-		if bPressed then
-			editorData[songList[songSelectionRounded]].songData[songDataOrder[paramSelection]] = oldValue
-			sfx.switch:play()
-			adjustingNumber = false
-		end
 		if aPressed then
 			sfx.switch:play()
 			adjustingNumber = false
@@ -140,12 +141,19 @@ function updateSongDataEditor()
 		if downPressed then
 			newValue -= 1
 			sfx.click:play()
-			editorData[songList[songSelectionRounded]].songData[songDataOrder[paramSelection]] = newValue
 		end
 		if upPressed then
 			newValue += 1
 			sfx.click:play()
-			editorData[songList[songSelectionRounded]].songData[songDataOrder[paramSelection]] = newValue
+		end
+		newValue += crankChange/90
+		newValueRounded = round(newValue)
+		editorData[songList[songSelectionRounded]].songData[songDataOrder[paramSelectionRounded]] = newValueRounded
+		
+		if bPressed then
+			editorData[songList[songSelectionRounded]].songData[songDataOrder[paramSelectionRounded]] = oldValue
+			sfx.switch:play()
+			adjustingNumber = false
 		end
 		
 		readSongData()
@@ -160,5 +168,5 @@ function drawSongDataEditor()
 	gfx.clear()
 	
 	-- draw the list of song data parameters
-	drawList(songDataText, paramSelection, 3, 3, 394, 234, 3, fonts.orbeatsSans, menuFill, false)
+	drawList(songDataText, paramSelectionRounded, 3, 3, 394, 234, 3, fonts.orbeatsSans, menuFill, false)
 end
