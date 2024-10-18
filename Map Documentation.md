@@ -23,22 +23,22 @@ Create a new song, you'll need to create a folder for it's files (what will be r
 ### Creating the songData.json file
 songData.json files follow this specific format:
 
+```{
+	"name":"",
+	"artist":"",
+	"difficulties":[
+		""
+	],
+	"bpm":#,
+	"bpmChanges":[
 		{
-			"name":"",
-			"artist":"",
-			"difficulties":[
-			   	 ""
-			],
-			"bpm":#,
-			"bpmChanges":[
-				{
-			 		"beat":#,
-					"bpm":#
-				}
-			],
-		   	"beatOffset":#,
-		   	"preview":#
-		 }
+	 		"beat":#,
+			"bpm":#
+		}
+	],
+	"beatOffset":#,
+	"preview":#
+}```
 
 Any attribute followed by a # takes a number as input, and any attribute followed by "" takes a string.
 
@@ -54,52 +54,53 @@ Any attribute followed by a # takes a number as input, and any attribute followe
  - **preview** - When in the music file to start the preview when on the song select menu, in seconds. **Must have at least ten seconds of audio after.**
 ### Creating a custom difficulty map
 A custom map for a song is stored as a .json file, following this overall structure:
-		
+
+```{
+	"notes":[
 		{
-			"notes":[
-				{
-					"type":"",
-					"spawnBeat":#,
-					"hitBeat":#,
-					"speed":#,
-					"width":#,
-					"position":#,
-					"spin":#
-				}
-			],
-			"effects":{
-				"toggleInvert":[
-					#
-				],
-				"moveOrbitX":[
-					{
-						"beat":#,
-						"x":#,
-						"animation":"",
-						"power":#
-					}
-				],
-				"moveOrbitY":[
-					{
-						"beat":#,
-						"y":#,
-						"animation":"",
-						"power":#
-					}
-				],
-				"text":[
-					{
-						"startBeat":#,
-						"endBeat":#,
-						"text":"",
-						"x":#,
-						"y":#,
-						"font":""
-					}
-				]
-			},
-			"songEnd":#
+			"type":"",
+			"spawnBeat":#,
+			"hitBeat":#,
+			"speed":#,
+			"width":#,
+			"position":#,
+			"spin":#
 		}
+	],
+	"effects":{
+		"toggleInvert":[
+			#
+		],
+		"moveOrbitX":[
+			{
+				"beat":#,
+				"x":#,
+				"animation":"",
+				"power":#
+			}
+		],
+		"moveOrbitY":[
+			{
+				"beat":#,
+				"y":#,
+				"animation":"",
+				"power":#
+			}
+		],
+		"text":[
+			{
+				"startBeat":#,
+				"endBeat":#,
+				"text":"",
+				"x":#,
+				"y":#,
+				"font":""
+			}
+		]
+	},
+	"songEnd":#
+}```
+
 Any attribute followed by a # takes a number as input, and any attribute followed by "" takes a string.
  - **notes** - List of note objects.
 	 - Each note is defined by a set of attributes:
