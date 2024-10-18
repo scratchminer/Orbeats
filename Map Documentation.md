@@ -23,13 +23,18 @@ Create a new song, you'll need to create a folder for it's files (what will be r
 ### Creating the songData.json file
 songData.json files follow this specific format:
 
+<<<<<<< HEAD
 ```JSON
 {
+=======
+```{
+>>>>>>> 59f3bf5 (modify the MD indentation)
 	"name":"",
 	"artist":"",
 	"difficulties":[
 		""
 	],
+<<<<<<< HEAD
 	"bpm":0,
 	"bpmChanges":[
 		{
@@ -41,6 +46,18 @@ songData.json files follow this specific format:
 	"preview":0
 }
 ```
+=======
+	"bpm":#,
+	"bpmChanges":[
+		{
+	 		"beat":#,
+			"bpm":#
+		}
+	],
+	"beatOffset":#,
+	"preview":#
+}```
+>>>>>>> 59f3bf5 (modify the MD indentation)
 
 Any attribute followed by a 0 takes a number as input, and any attribute followed by "" takes a string.
 
@@ -59,56 +76,54 @@ Any attribute followed by a 0 takes a number as input, and any attribute followe
 ### Creating a custom difficulty map
 A custom map for a song is stored as a .json file, following this overall structure:
 
-```JSON
-{
+
+```{
 	"notes":[
 		{
 			"type":"",
-			"spawnBeat":0,
-			"hitBeat":0,
-			"speed":0,
-			"width":0,
-			"position":0,
-			"spin":0,
-			"duration":0
+			"spawnBeat":#,
+			"hitBeat":#,
+			"speed":#,
+			"width":#,
+			"position":#,
+			"spin":#
 		}
 	],
 	"effects":{
 		"toggleInvert":[
-			0
+			#
 		],
 		"moveOrbitX":[
 			{
-				"beat":0,
-				"x":0,
+				"beat":#,
+				"x":#,
 				"animation":"",
-				"power":0
+				"power":#
 			}
 		],
 		"moveOrbitY":[
 			{
-				"beat":0,
-				"y":0,
+				"beat":#,
+				"y":#,
 				"animation":"",
-				"power":0
+				"power":#
 			}
 		],
 		"text":[
 			{
-				"startBeat":0,
-				"endBeat":0,
+				"startBeat":#,
+				"endBeat":#,
 				"text":"",
-				"x":0,
-				"y":0,
+				"x":#,
+				"y":#,
 				"font":""
 			}
 		]
 	},
-	"songEnd":0
-}
-```
+	"songEnd":#
+}```
 
-Any attribute followed by a 0 takes a number as input, and any attribute followed by "" takes a string.
+Any attribute followed by a # takes a number as input, and any attribute followed by "" takes a string.
  - **notes** - List of note objects.
 	 - Each note is defined by a set of attributes:
 		 - **type**\* - The type of the note. Can be either "Note", "HoldNote", or "FlipNote". "Note" will make it a normal note, hit by pressing down/B while in the right place. "HoldNote" will make it a note that is hit if you're holding up/A/down/B and are in the right place. "FlipNote" will make it a note that you hit by pressing up/A and flipping to the other side while in the right place. *Defaults to “Note”.*
