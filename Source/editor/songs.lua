@@ -35,7 +35,7 @@ local drawerHeaders <const> = {
 
 -- define variables
 local function getListOfSongs()
-	local songFiles = pd.file.listFiles("/custom songs/")
+	local songFiles = pd.file.listFiles("/editor songs/")
 	if songFiles == nil then songFiles = {} end
 	
 	for i=#songFiles,1,-1 do
@@ -120,6 +120,15 @@ function updateEditorSongsSelect()
 				elseif songOptions[songOptionSelectionRounded] == "Set Data" then
 					sfx.switch:play()
 					return "songDataEditor"
+				elseif songOptions[songOptionSelectionRounded] == "Export" then
+					sfx.switch:play()
+					
+					-- turn characters that can't be put in a filename into underscores
+					local songDirName = "/songs/"..songList[songSelectionRounded].songData.name:gsub("[%*<>/\\%?:|]", "_")..songList[songSelectionRounded].songData.artist:gsub("[%*<>/\\%?:|]", "_")
+					pd.file.mkdir(songDirName)
+					pd.datastore.write(songList[songSelectionRounded].songData, songDirName.."/songData")
+					
+					-- write map data as well here too
 				end
 			end
 			if downPressed then
@@ -132,7 +141,7 @@ function updateEditorSongsSelect()
 		end
 	elseif deleting then
 		if aHeld and upHeld then
-			pd.file.delete("/custom songs/"..songList[songSelectionRounded]..".pda")
+			pd.file.delete("/editor songs/"..songList[songSelectionRounded]..".pda")
 			songList = getListOfSongs()
 			deleting = false
 			sfx.play:play()
