@@ -35,7 +35,7 @@ local function getListOfSongs()
 	return songList
 end
 
-local songList <const> = getListOfSongs()
+local songList = getListOfSongs()
 
 local function sortSongListByName()
 	local sortedList = {}
@@ -92,9 +92,16 @@ local function sortSongListByBpm()
 	return sortedList
 end
 
-local songListSortedByName <const> = sortSongListByName()
-local songListSortedByArtist <const> = sortSongListByArtist()
-local songListSortedByBpm <const> = sortSongListByBpm()
+local songListSortedByName = sortSongListByName()
+local songListSortedByArtist = sortSongListByArtist()
+local songListSortedByBpm = sortSongListByBpm()
+
+function reloadSongs()
+	songList = getListOfSongs()
+	songListSortedByName = sortSongListByName()
+	songListSortedByArtist = sortSongListByArtist()
+	songListSortedByBpm = sortSongListByBpm()
+end
 
 local songBarDither <const> = {0x95, 0x6A, 0xA9, 0x56, 0x59, 0xA6, 0x9A, 0x65}
 

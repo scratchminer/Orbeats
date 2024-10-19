@@ -19,6 +19,7 @@ function updateResetMenu()
 		pd.datastore.delete("stats")
 		pd.datastore.delete("settings")
 		pd.restart()
+		return "title"
 	end
 	
 	return "reset"

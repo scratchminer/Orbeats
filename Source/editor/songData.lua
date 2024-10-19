@@ -69,6 +69,12 @@ local oldText = ""
 local function keyboardClosing(confirmed)
 	if confirmed then
 		editorData[songList[songSelectionRounded]].songData[songDataOrder[paramSelectionRounded]] = kb.text
+		if songDataOrder[paramSelectionRounded] == "name" then
+			pd.file.rename("/editor songs/"..oldText..".pda", "/editor songs/"..makeValidFilename(kb.text)..".pda")
+			songList[songSelectionRounded] = kb.text
+			editorData[kb.text] = editorData[oldText]
+			editorData[oldText] = nil
+		end
 		readSongData()
 	else
 		editorData[songList[songSelectionRounded]].songData[songDataOrder[paramSelectionRounded]] = oldText
