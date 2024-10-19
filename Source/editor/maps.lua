@@ -36,7 +36,6 @@ function makeValidFilename(filename)
 	return string.gsub(filename, "[%*<>/\\%?:|]", "_")
 end
 
--- TODO: pull from folder(?) where song difficulties are stored and grab .json files
 local function getListOfMaps()
   local songFiles = pd.file.listFiles("/songs/" .. makeValidFilename(currentSongData["name"]) .. "." .. makeValidFilename(currentSongData["artist"]))
   if songFiles == nil then songFiles = {} end
