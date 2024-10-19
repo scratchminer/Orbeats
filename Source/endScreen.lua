@@ -53,142 +53,141 @@ local fadeOutBlack = 1
 local fadeOutWhite = 1
 
 local function initEndScreen()
-  local pointPercentage = score / ((hitNotes + missedNotes + notesLeft) * 100)
-
-  -- set up animations
-  completedYTimer = replaceTimer(completedYTimer, animationTime, completedCurrentY, 5, ease.outCubic)
-  tmr.new(500, function()
-    statsXTimer = replaceTimer(statsXTimer, animationTime, statsCurrentX, 15, ease.outCubic)
-  end)
-  tmr.new(1500, function()
-    ratingXTimer = replaceTimer(ratingXTimer, animationTime, ratingCurrentX, screenWidth - ratingImageWidth - 5,
-      ease.outCubic)
-  end)
-  bgmTimer = tmr.new(2000, function()
-    continueYTimer = replaceTimer(continueYTimer, animationTime, continueCurrentY, 215, ease.outCubic)
-    menuBgm:play(0)
-    menuBgm:setVolume(1)
-  end)
-
-  sheenTimer = replaceTimer(sheenTimer, 20000, 600, -200)
-  sheenTimer.repeats = true
-  tickerTimer = replaceTimer(tickerTimer, 7500, 0, tickerTextWidth)
-  tickerTimer.repeats = true
-
-  -- calculate what rating they got
-  if pointPercentage == 1 then
-    songRating = "P"
-  elseif pointPercentage >= 0.9 then
-    songRating = "SS"
-  elseif pointPercentage >= 0.8 then
-    songRating = "S"
-  elseif pointPercentage >= 0.7 then
-    songRating = "A"
-  elseif pointPercentage >= 0.6 then
-    songRating = "B"
-  elseif pointPercentage >= 0.5 then
-    songRating = "C"
-  elseif pointPercentage >= 0.4 then
-    songRating = "D"
-  else
-    songRating = "F"
-  end
-
-  -- check if they got a full combo
-  if missedNotes == 0 then
-    fullCombo = true
-  else
-    fullCombo = false
-  end
-
-  -- if they got a high score, save it
-  songHiScore = 0
-  songHiCombo = 0
-  if scores ~= nil then
-    if scores[currentSong.name] ~= nil then
-      if scores[currentSong.name][currentDifficulty] ~= nil then
-        songHiScore = scores[currentSong.name][currentDifficulty].score
-        songHiCombo = scores[currentSong.name][currentDifficulty].combo
-      else
-        scores[currentSong.name][currentDifficulty] = {}
-      end
-    else
-      scores[currentSong.name] = {}
-      scores[currentSong.name][currentDifficulty] = {}
-    end
-  else
-    scores = {}
-    scores[currentSong.name] = {}
-    scores[currentSong.name][currentDifficulty] = {}
-  end
-  if songHiScore == nil then
-    songHiScore = 0
-  end
-  if songHiCombo == nil then
-    songHiCombo = 0
-  end
-
-  if songHiScore < score then
-    scores[currentSong.name][currentDifficulty].score = score
-    scores[currentSong.name][currentDifficulty].rating = songRating
-  end
-  if songHiCombo < largestCombo then
-    scores[currentSong.name][currentDifficulty].combo = largestCombo
-    scores[currentSong.name][currentDifficulty].fc = fullCombo
-  end
-
-  pd.datastore.write(scores, "scores")
-
-  -- update stats
-  if stats.lifetimeScore ~= nil then
-    stats.lifetimeScore += score
-  else
-    stats.lifetimeScore = score
-  end
-
-  if stats.hitNotes ~= nil then
-    stats.hitNotes += hitNotes
-  else
-    stats.hitNotes = hitNotes
-  end
-
-  if stats.perfectHits ~= nil then
-    stats.perfectHits += perfectHits
-  else
-    stats.perfectHits = perfectHits
-  end
-
-  if stats.missedNotes ~= nil then
-    stats.missedNotes += missedNotes
-  else
-    stats.missedNotes = missedNotes
-  end
-
-  if stats.levelsCompleted ~= nil then
-    stats.levelsCompleted += 1
-  else
-    stats.levelsCompleted = 1
-  end
-
-  if fullCombo then
-    if stats.fullCombos ~= nil then
-      stats.fullCombos += 1
-    else
-      stats.fullCombos = 1
-    end
-  end
-
-  if stats.ranksReceived == nil then
-    stats.ranksReceived = {}
-  end
-
-  if stats.ranksReceived[songRating] ~= nil then
-    stats.ranksReceived[songRating] += 1
-  else
-    stats.ranksReceived[songRating] = 1
-  end
-
-  pd.datastore.write(stats, "stats")
+	local pointPercentage = score/((hitNotes+missedNotes+notesLeft)*100)
+	
+	-- set up animations
+	completedYTimer = replaceTimer(completedYTimer, animationTime, completedCurrentY, 5, ease.outCubic)
+	tmr.new(500, function()
+		statsXTimer = replaceTimer(statsXTimer, animationTime, statsCurrentX, 15, ease.outCubic)
+	end)
+	tmr.new(1500, function()
+		ratingXTimer = replaceTimer(ratingXTimer, animationTime, ratingCurrentX, screenWidth-ratingImageWidth-5, ease.outCubic)
+	end)
+	bgmTimer = tmr.new(2000, function()
+		continueYTimer = replaceTimer(continueYTimer, animationTime, continueCurrentY, 215, ease.outCubic)
+		menuBgm:play(0)
+		menuBgm:setVolume(1)
+	end)
+	
+	sheenTimer = replaceTimer(sheenTimer, 20000, 600, -200)
+	sheenTimer.repeats = true
+	tickerTimer = replaceTimer(tickerTimer, 7500, 0, tickerTextWidth)
+	tickerTimer.repeats = true
+	
+	-- calculate what rating they got
+	if pointPercentage == 1 then
+		songRating = "P"
+	elseif pointPercentage >= 0.9 then
+		songRating = "SS"
+	elseif pointPercentage >= 0.8 then
+		songRating = "S"
+	elseif pointPercentage >= 0.7 then
+		songRating = "A"
+	elseif pointPercentage >= 0.6 then
+		songRating = "B"
+	elseif pointPercentage >= 0.5 then
+		songRating = "C"
+	elseif pointPercentage >= 0.4 then
+		songRating = "D"
+	else
+		songRating = "F"
+	end
+	
+	-- check if they got a full combo
+	if missedNotes == 0 then
+		fullCombo = true
+	else
+		fullCombo = false
+	end
+	
+	-- if they got a high score, save it
+	songHiScore = 0
+	songHiCombo = 0
+	if scores ~= nil then
+		if scores[currentSong.name] ~= nil then
+			if scores[currentSong.name][currentDifficulty] ~= nil then
+				songHiScore = scores[currentSong.name][currentDifficulty].score
+				songHiCombo = scores[currentSong.name][currentDifficulty].combo
+			else
+				scores[currentSong.name][currentDifficulty] = {}
+			end
+		else
+			scores[currentSong.name] = {}
+			scores[currentSong.name][currentDifficulty] = {}
+		end
+	else
+		scores = {}
+		scores[currentSong.name] = {}
+		scores[currentSong.name][currentDifficulty] = {}
+	end
+	if songHiScore == nil then
+		songHiScore = 0
+	end
+	if songHiCombo == nil then
+		songHiCombo = 0
+	end
+	
+	if songHiScore < score then
+		scores[currentSong.name][currentDifficulty].score = score
+		scores[currentSong.name][currentDifficulty].rating = songRating
+	end
+	if songHiCombo < largestCombo then
+		scores[currentSong.name][currentDifficulty].combo = largestCombo
+		scores[currentSong.name][currentDifficulty].fc = fullCombo
+	end
+	
+	pd.datastore.write(scores, "scores")
+	
+	-- update stats
+	if stats.lifetimeScore ~= nil then
+		stats.lifetimeScore += score
+	else
+		stats.lifetimeScore = score
+	end
+	
+	if stats.hitNotes ~= nil then
+		stats.hitNotes += hitNotes
+	else
+		stats.hitNotes = hitNotes
+	end
+	
+	if stats.perfectHits ~= nil then
+		stats.perfectHits += perfectHits
+	else
+		stats.perfectHits = perfectHits
+	end
+	
+	if stats.missedNotes ~= nil then
+		stats.missedNotes += missedNotes
+	else
+		stats.missedNotes = missedNotes
+	end
+	
+	if stats.levelsCompleted ~= nil then
+		stats.levelsCompleted += 1
+	else
+		stats.levelsCompleted = 1
+	end
+	
+	if fullCombo then
+		if stats.fullCombos ~= nil then
+			stats.fullCombos += 1
+		else
+			stats.fullCombos = 1
+		end
+	end
+	
+	if stats.ranksReceived == nil then
+		stats.ranksReceived = {}
+	end
+	
+	if stats.ranksReceived[songRating] ~= nil then
+		stats.ranksReceived[songRating] += 1
+	else
+		stats.ranksReceived[songRating] = 1
+	end
+	
+	pd.datastore.write(stats, "stats")
 end
 
 local function resetAnimationValues()
@@ -206,53 +205,52 @@ local function resetAnimationValues()
 end
 
 function updateEndScreen()
-  -- initialize the end screen
-  if not initialized then
-    initEndScreen()
-    initialized = true
-  end
-
-  -- check inputs
-  if upPressed or aPressed then
-    toMenu = true
-    restart = false
-    sfx.low:play()
-  end
-  if downPressed or bPressed then
-    restart = true
-    toMenu = false
-    sfx.low:play()
-  end
-
-  -- check if they're restarting the song
-  if restart then
-    if fadeOutWhite > 0 then
-      fadeOutWhite -= 0.1
-    else
-      setUpSong(restartTable.bpm, restartTable.bpmChanges, restartTable.beatOffset, restartTable.musicFilePath,
-        restartTable.tablePath)
-      restart = false
-      initialized = false
-      bgmTimer:remove()
-      if menuBgm:isPlaying() then
-        menuBgm:stop()
-      end
-      resetAnimationValues()
-      return "song"
-    end
-  end
-  --check if they're going back to the song select menu
-  if toMenu then
-    if fadeOutBlack > 0 then
-      fadeOutBlack -= 0.1
-    else
-      toMenu = false
-      initialized = false
-      resetAnimationValues()
-      return "songSelect"
-    end
-  end
-  return "songEndScreen"
+	-- initialize the end screen
+	if not initialized then
+		initEndScreen()
+		initialized = true
+	end
+	
+	-- check inputs
+	if upPressed or aPressed then
+		toMenu = true
+		restart = false
+		sfx.low:play()
+	end
+	if downPressed or bPressed then
+		restart = true
+		toMenu = false
+		sfx.low:play()
+	end
+	
+	-- check if they're restarting the song
+	if restart then
+		if fadeOutWhite > 0 then
+			fadeOutWhite -= 0.1
+		else
+			setUpSong(restartTable.bpm, restartTable.bpmChanges, restartTable.beatOffset, restartTable.musicFilePath, restartTable.tablePath)
+			restart = false
+			initialized = false
+			bgmTimer:remove()
+			if menuBgm:isPlaying() then
+				menuBgm:stop()
+			end
+			resetAnimationValues()
+			return "song"
+		end
+	end
+	--check if they're going back to the song select menu
+	if toMenu then
+		if fadeOutBlack > 0 then
+			fadeOutBlack -= 0.1
+		else
+			toMenu = false
+			initialized = false
+			resetAnimationValues()
+			return "songSelect"
+		end
+	end
+	return "songEndScreen"
 end
 
 function drawEndScreen()
