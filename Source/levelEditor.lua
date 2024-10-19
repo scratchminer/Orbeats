@@ -3,6 +3,7 @@ import "CoreLibs/keyboard"
 
 import "editor/songs"
 import "editor/songData"
+import "editor/reload"
 
 -- define constants
 local pd <const> = playdate
@@ -35,6 +36,12 @@ function updateLevelEditor()
 		pd.setMenuImage(manualMenuImage, 200)
 	elseif editorState == "songDataEditor" then
 		editorState = updateSongDataEditor()
+	elseif editorState == "reload" then
+		editorState = updateReloadMenu()
+	elseif editorState == "title" then
+		pd.setMenuImage(nil)
+		editorState = "songSelect"
+		return "title"
 	elseif editorState == "exitEditor" then
 		pd.setMenuImage(nil)
 		editorState = "songSelect"
@@ -50,6 +57,9 @@ function drawLevelEditor()
 		drawEditorSongSelect()
 	elseif editorState == "songDataEditor" then
 		drawSongDataEditor()
+	elseif editorState == "reload" then
+		gfx.clear()
+		drawReloadMenu()
 	end
 	
 end

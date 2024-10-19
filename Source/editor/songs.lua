@@ -50,6 +50,11 @@ local function getListOfSongs()
 	return songFiles
 end
 
+-- turn characters that can't be put in a filename into underscores
+function makeValidFilename(filename)
+	return string.gsub(filename, "[%*<>/\\%?:|]", "_")
+end
+
 songList = getListOfSongs()
 
 editorData = pd.datastore.read("editorData")
@@ -123,12 +128,26 @@ function updateEditorSongsSelect()
 				elseif songOptions[songOptionSelectionRounded] == "Export" then
 					sfx.switch:play()
 					
-					-- turn characters that can't be put in a filename into underscores
-					local songDirName = "/songs/"..songList[songSelectionRounded].songData.name:gsub("[%*<>/\\%?:|]", "_")..songList[songSelectionRounded].songData.artist:gsub("[%*<>/\\%?:|]", "_")
-					pd.file.mkdir(songDirName)
-					pd.datastore.write(songList[songSelectionRounded].songData, songDirName.."/songData")
+					local songDirName = "/songs/"..makeValidFilename(editorData[songList[songSelectionRounded]].songData.name).."."..makeValidFilename(editorData[songList[songSelectionRounded]].songData.artist)
+					local audioName = makeValidFilename(songList[songSelectionRounded])..".pda"
 					
-					-- write map data as well here too
+					pd.file.mkdir(songDirName)
+					pd.datastore.write(editorData[songList[songSelectionRounded]].songData, songDirName.."/songData")
+					
+					local song = pd.file.open("/editor songs/"..audioName, pd.file.kFileRead)
+					local outSong = pd.file.open(songDirName.."/"..audioName, pd.file.kFileWrite)
+					
+					for k = 0, pd.file.getSize("/editor songs/"..audioName)-1, 1024 do
+						outSong:write(song:read(k))
+					end
+					outSong:close()
+					song:close()
+					
+					for mapName, mapData in pairs(editorData[songList[songSelectionRounded]].mapData) do
+						pd.datastore.write(mapData, songDirName.."/"..makeValidFilename(mapName))
+					end
+					
+					return "reload"
 				end
 			end
 			if downPressed then
