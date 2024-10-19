@@ -16,16 +16,6 @@ local songOptions <const> = {
 	"Delete"
 }
 
-local mapOptions <const> = {
-	"New Map",
-	"Edit Chart",
-	"Move Up",
-	"Move Down",
-	"Rename",
-	"Duplicate",
-	"Delete"
-}
-
 local guideText <const> = "Read the online level editor manual\nto get started making your own levels!"
 
 local drawerHeaders <const> = {
@@ -125,6 +115,10 @@ function updateEditorSongsSelect()
 				elseif songOptions[songOptionSelectionRounded] == "Set Data" then
 					sfx.switch:play()
 					return "songDataEditor"
+        elseif songOptions[songOptionSelectionRounded] == "Edit Maps" then
+          sfx.switch:play()
+          setMapOptionsData(editorData[songList[songSelectionRounded]].songData)
+          return "songMaps"
 				elseif songOptions[songOptionSelectionRounded] == "Export" then
 					sfx.switch:play()
 					
@@ -157,6 +151,8 @@ function updateEditorSongsSelect()
 				songOptionSelection = songOptionSelectionRounded-1
 			end
 			songOptionSelection += crankChange/90
+    else
+      
 		end
 	elseif deleting then
 		if aHeld and upHeld then
