@@ -111,8 +111,8 @@ function updateEditorSongsSelect()
 					sfx.mid:play()
 					return "songDataEditor"
 				elseif songOptions[songOptionSelectionRounded] == "Edit Maps" then
-					sfx.switch:play()
-					setMapOptionsData(editorData[songList[songSelectionRounded]].songData)
+					sfx.mid:play()
+					setMapOptionsData(editorData[songList[songSelectionRounded]])
 					return "songMaps"
 				elseif songOptions[songOptionSelectionRounded] == "Export" then
 					sfx.switch:play()
