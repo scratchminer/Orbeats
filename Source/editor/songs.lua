@@ -18,11 +18,6 @@ local songOptions <const> = {
 
 local guideText <const> = "Read the online level editor manual\nto get started making your own levels!"
 
-local drawerHeaders <const> = {
-	songs = "Songs",
-	maps = "Maps"
-}
-
 -- define variables
 local function getListOfSongs()
 	local songFiles = pd.file.listFiles("/editor songs/")
@@ -113,7 +108,7 @@ function updateEditorSongsSelect()
 					deleting = true
 					sfx.switch:play()
 				elseif songOptions[songOptionSelectionRounded] == "Set Data" then
-					sfx.switch:play()
+					sfx.mid:play()
 					return "songDataEditor"
 				elseif songOptions[songOptionSelectionRounded] == "Edit Maps" then
 					sfx.switch:play()
@@ -208,7 +203,7 @@ function drawEditorSongSelect()
 		-- draw the songs drawer
 		local songHeaderX, songHeaderY = 3, 3
 		gfx.setImageDrawMode(gfx.kDrawModeFillWhite)
-		gfx.drawText(drawerHeaders.songs, songHeaderX, songHeaderY, fonts.orbeatsSans)
+		gfx.drawText("Songs", songHeaderX, songHeaderY, fonts.orbeatsSans)
 		gfx.setImageDrawMode(gfx.kDrawModeCopy)
 
 		gfx.setColor(gfx.kColorWhite)

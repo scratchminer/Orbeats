@@ -35,9 +35,7 @@ songDataLabels = {
 songDataText = {}
 
 local function readSongData()
-	
 	songDataText = {}
-	
 	songData = editorData[songList[songSelectionRounded]].songData
 	
 	for i=1,#songDataOrder do
@@ -93,13 +91,13 @@ function updateSongDataEditor()
 	
 	menuFill = not prevAdjustingNumber and not kb.isVisible()
 	if menuFill then
-		if bPressed then
-			sfx.switch:play()
+		if bPressed or leftPressed then
+			sfx.low:play()
 			init = false
 			pd.datastore.write(editorData, "editorData")
 			return "songSelect"
 		end
-		if aPressed then
+		if aPressed or rightPressed then
 			if type(songData[songDataOrder[paramSelectionRounded]]) == "string" then
 				oldText = songData[songDataOrder[paramSelectionRounded]]
 				kb.show(oldText)
@@ -140,7 +138,7 @@ function updateSongDataEditor()
 	end
 	
 	if prevAdjustingNumber then
-		if aPressed then
+		if aPressed or rightPressed then
 			sfx.switch:play()
 			adjustingNumber = false
 		end
@@ -156,7 +154,7 @@ function updateSongDataEditor()
 		newValueRounded = round(newValue)
 		editorData[songList[songSelectionRounded]].songData[songDataOrder[paramSelectionRounded]] = newValueRounded
 		
-		if bPressed then
+		if bPressed or leftPressed then
 			editorData[songList[songSelectionRounded]].songData[songDataOrder[paramSelectionRounded]] = oldValue
 			sfx.switch:play()
 			adjustingNumber = false
