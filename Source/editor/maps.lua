@@ -7,8 +7,7 @@ local screenWidth <const> = 400
 local screenHeight <const> = 240
 
 local mapOptions <const> = {
-	"New Map",
-	"Edit Chart",
+	"Edit",
 	"Move Up",
 	"Move Down",
 	"Rename",
@@ -18,22 +17,22 @@ local mapOptions <const> = {
 
 local songMaps = {}
 
-local selecting = "option"
+local selecting = "map"
 
 local optionSelection = 1
-optionSelectionRounded = optionSelection
+local optionSelectionRounded = optionSelection
 local oldOptionSelection = optionSelection
 
 local mapSelection = 1
 local mapSelectionRounded = mapSelection
 local oldMapSelection = mapSelection
 
-local songHeaderX, songHeaderY = 3, 3
+local mapHeaderX, mapHeaderY = 3, 3
 
 local currentSongData = {}
 
 local function getListOfMaps()
-	local songFiles = pd.file.listFiles("/songs/" .. makeValidFilename(currentSongData.name) .. "." .. makeValidFilename(currentSongData.artist))
+	local songFiles = pd.file.listFiles("/editor songs/" .. makeValidFilename(currentSongData.name) .. "." .. makeValidFilename(currentSongData.artist))
 	if songFiles == nil then songFiles = {} end
 	
 	for i = #songFiles, 1, -1 do
@@ -53,49 +52,56 @@ function setMapOptionsData(data)
 	currentSongData = data
 	
 	songMaps = getListOfMaps()
+	songMaps[#songMaps + 1] = "Create..."
 end
 
 function updateMapSongsSelect()
 	if selecting == "option" then
 		if aPressed or rightPressed then
 			sfx.switch:play()
-			if mapOptions[optionSelectionRounded] == "New Map" then
-				-- open keyboard to create new map?
-			else
-				selecting = "map"
-			end
+			-- do stuff here
 		elseif bPressed or leftPressed then
 			sfx.switch:play()
-			return "songSelect"
+			selecting = "map"
 		elseif upPressed then
 			optionSelection -= 1
 		elseif downPressed then
 			optionSelection += 1
 		end
+		
+		optionSelection += crankChange/90
 	elseif selecting == "map" then
 		if aPressed or rightPressed then
 			sfx.switch:play()
-			-- do stuff here
+			if mapSelectionRounded == #songMaps then
+				-- pull up keyboard to create map
+			else
+				selecting = "option"
+			end
 		elseif bPressed or leftPressed then
 			sfx.switch:play()
-			selecting = "option"
+			return "songSelect"
 		elseif upPressed then
 			mapSelection -= 1
 		elseif downPressed then
 			mapSelection += 1
 		end
+		
+		mapSelection += crankChange/90
 	end
 	
 	optionSelection = math.min(#mapOptions, math.max(optionSelection, 1))
 	optionSelectionRounded = round(optionSelection)
 	if oldOptionSelection ~= optionSelectionRounded then
-		oldSongSelection = optionSelectionRounded
+		sfx.click:play()
+		oldOptionSelection = optionSelectionRounded
 	end
 	
 	mapSelection = math.min(#songMaps, math.max(mapSelection, 1))
 	mapSelectionRounded = round(mapSelection)
 	if oldMapSelection ~= mapSelectionRounded then
-		oldSongOptionSelection = mapSelectionRounded
+		sfx.click:play()
+		oldMapSelection = mapSelectionRounded
 	end
 	
 	return "songMaps"
@@ -105,26 +111,18 @@ function drawMapSongsSelect()
 	gfx.clear(gfx.kColorBlack)
 	
 	gfx.setImageDrawMode(gfx.kDrawModeFillWhite)
-	gfx.drawText("Map Options", songHeaderX, songHeaderY, fonts.orbeatsSans)
+	gfx.drawText("Maps", mapHeaderX, mapHeaderY, fonts.orbeatsSans)
 	gfx.setImageDrawMode(gfx.kDrawModeCopy)
 	
 	gfx.setColor(gfx.kColorWhite)
 	gfx.setLineWidth(2)
 	gfx.drawLine(133, 0, 133, screenHeight)
 	
-	if selecting == "option" then
-		drawList(mapOptions, optionSelectionRounded, 12, 22, 110, 216, 3, fonts.orbeatsSans, true, true)
-	else
-		drawList(mapOptions, optionSelectionRounded, 12, 22, 110, 216, 3, fonts.orbeatsSans, false, true)
-	end
+	drawScrollingList(songMaps, mapSelectionRounded, 12, 22, 110, 216, 3, fonts.orbeatsSans, selecting == "map", true)
 	
 	gfx.setColor(gfx.kColorWhite)
 	gfx.setLineWidth(2)
 	gfx.drawLine(267, 0, 267, screenHeight)
 	
-	if selecting == "option" or selecting == "map" then
-		drawScrollingList(songMaps, mapSelectionRounded, 136, 3, 110, 216, 3, fonts.orbeatsSans, selecting == "map", true)
-	else
-		
-	end
+	drawList(mapOptions, optionSelectionRounded, 136, 3, 110, 216, 3, fonts.orbeatsSans, selecting == "option", true)
 end
