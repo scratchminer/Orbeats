@@ -1,7 +1,7 @@
 {
     "notes":[
         {  
-            "type":"note",
+            "type":"Note",
             "spawnBeat":-7,
             "hitBeat":0,
             "speed":1,
@@ -10,7 +10,7 @@
             "spin":0
         },
         {  
-            "type":"note",
+            "type":"Note",
             "spawnBeat":-5,
             "hitBeat":2,
             "speed":1,
@@ -19,7 +19,7 @@
             "spin":0
         },
         {  
-            "type":"note",
+            "type":"Note",
             "spawnBeat":-3,
             "hitBeat":4,
             "speed":1,
@@ -28,7 +28,7 @@
             "spin":0
         },
         {  
-            "type":"note",
+            "type":"Note",
             "spawnBeat":-1,
             "hitBeat":6,
             "speed":1,
@@ -38,7 +38,7 @@
         },
 
         {  
-            "type":"note",
+            "type":"Note",
             "spawnBeat":1,
             "hitBeat":8,
             "speed":1,
@@ -47,7 +47,7 @@
             "spin":0
         },
         {  
-            "type":"note",
+            "type":"Note",
             "spawnBeat":3,
             "hitBeat":10,
             "speed":1,
@@ -56,7 +56,7 @@
             "spin":0
         },
         {  
-            "type":"note",
+            "type":"Note",
             "spawnBeat":5,
             "hitBeat":12,
             "speed":1,
@@ -65,7 +65,7 @@
             "spin":0
         },
         {  
-            "type":"note",
+            "type":"Note",
             "spawnBeat":7,
             "hitBeat":14,
             "speed":1,
@@ -75,7 +75,7 @@
         },
 
         {  
-            "type":"note",
+            "type":"Note",
             "spawnBeat":9,
             "hitBeat":16,
             "speed":1,
@@ -84,7 +84,7 @@
             "spin":0
         },
         {  
-            "type":"note",
+            "type":"Note",
             "spawnBeat":11,
             "hitBeat":18,
             "speed":1,
@@ -93,7 +93,7 @@
             "spin":0
         },
         {  
-            "type":"note",
+            "type":"Note",
             "spawnBeat":13,
             "hitBeat":20,
             "speed":1,
@@ -102,7 +102,7 @@
             "spin":0
         },
         {  
-            "type":"note",
+            "type":"Note",
             "spawnBeat":15,
             "hitBeat":22,
             "speed":1,
@@ -112,7 +112,7 @@
         },
 
         {  
-            "type":"note",
+            "type":"Note",
             "spawnBeat":17,
             "hitBeat":24,
             "speed":1,
@@ -121,7 +121,7 @@
             "spin":0
         },
         {  
-            "type":"note",
+            "type":"Note",
             "spawnBeat":19,
             "hitBeat":26,
             "speed":1,
@@ -130,26 +130,28 @@
             "spin":0
         },
         {  
-            "type":"note",
+            "type":"Note",
             "spawnBeat":21,
             "hitBeat":28,
             "speed":1,
             "width":60,
             "position":270,
-            "spin":0
+            "spin":0,
+            "duration":1.5
         },
         {  
-            "type":"note",
+            "type":"Note",
             "spawnBeat":23,
             "hitBeat":30,
             "speed":1,
             "width":60,
             "position":180,
-            "spin":0
+            "spin":0,
+            "duration":1.5
         },
 
         {  
-            "type":"flipnote",
+            "type":"FlipNote",
             "spawnBeat":25,
             "hitBeat":32,
             "speed":1,
@@ -158,7 +160,7 @@
             "spin":0
         },
         {  
-            "type":"note",
+            "type":"Note",
             "spawnBeat":27,
             "hitBeat":34,
             "speed":1,
@@ -167,7 +169,7 @@
             "spin":0
         },
         {  
-            "type":"note",
+            "type":"Note",
             "spawnBeat":28,
             "hitBeat":35,
             "speed":1,
@@ -176,7 +178,7 @@
             "spin":0
         },
         {  
-            "type":"note",
+            "type":"Note",
             "spawnBeat":29,
             "hitBeat":36,
             "speed":1,
@@ -185,7 +187,7 @@
             "spin":0
         },
         {  
-            "type":"note",
+            "type":"Note",
             "spawnBeat":30,
             "hitBeat":37,
             "speed":1,
@@ -194,7 +196,7 @@
             "spin":0
         },
         {  
-            "type":"note",
+            "type":"Note",
             "spawnBeat":31,
             "hitBeat":38,
             "speed":1,
@@ -204,7 +206,7 @@
         },
 
         {  
-            "type":"note",
+            "type":"Note",
             "spawnBeat":33.25,
             "hitBeat":40.25,
             "speed":1,
@@ -213,7 +215,7 @@
             "spin":0
         },
         {  
-            "type":"note",
+            "type":"Note",
             "spawnBeat":34,
             "hitBeat":41,
             "speed":1,
@@ -222,7 +224,7 @@
             "spin":0
         },
         {  
-            "type":"note",
+            "type":"Note",
             "spawnBeat":34.75,
             "hitBeat":41.75,
             "speed":1,
@@ -232,7 +234,7 @@
         },
 
         {  
-            "type":"note",
+            "type":"Note",
             "spawnBeat":37,
             "hitBeat":44,
             "speed":1,
@@ -241,7 +243,7 @@
             "spin":0
         },
         {  
-            "type":"note",
+            "type":"Note",
             "spawnBeat":39,
             "hitBeat":46,
             "speed":1,
