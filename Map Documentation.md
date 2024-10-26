@@ -58,7 +58,6 @@ Any attribute followed by a 0 takes a number as input, and any attribute followe
 ### Creating a custom difficulty map
 A custom map for a song is stored as a .json file, following this overall structure:
 
-
 ```{
 	"notes":[
 		{

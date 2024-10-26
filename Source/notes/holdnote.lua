@@ -40,4 +40,3 @@ function HoldNote:draw(x, y, rad)
     gfx.drawLine(lineStartX2, lineStartY2, lineEndX2, lineEndY2)
   end
 end
-

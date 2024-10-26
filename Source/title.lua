@@ -25,6 +25,10 @@ local jingleBpm = 127
 -- pulse vars
 local pulse = false
 local pulseDepth = 4
+-- orbit vars
+local orbitDither = 1
+local orbitDitherTimer = tmr.new(0, orbitDither, orbitDither)
+local drawOrbit = false
 -- title vars
 local titleHideY = -100
 local titleCurrentY = titleHideY

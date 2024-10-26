@@ -172,7 +172,7 @@ noteInstances = {}
 local notePool = {}
 local missedNoteRadius <const> = 300 -- the radius where notes get deleted
 local hitForgiveness <const> = 25    -- the distance from the orbit radius from which you can still hit notes
-local maxNoteScore <const> = 100     --the max score you can get from a note
+local maxNoteScore <const> = 100     -- the max score you can get from a note
 local perfectDistance <const> = 12   -- the distance from the center of a note or from the exact orbit radius where you can still get a perfect note
 
 -- Effects variables

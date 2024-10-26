@@ -111,4 +111,3 @@ function Note:finishHitting(currentBeat)
   self.hitting = false
   self.finishBeat = currentBeat
 end
-
