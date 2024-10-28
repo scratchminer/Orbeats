@@ -32,6 +32,7 @@ local oldText = ""
 
 local mapHeaderX, mapHeaderY = 3, 3
 
+local currentSongFilename = ""
 local currentSongData = {}
 
 local function getListOfMaps()
@@ -69,8 +70,10 @@ end
 
 -- this function sets the song that the draw and update functions will pull from when getting maps.
 -- this takes in the song's editor data
-function setMapOptionsData(data)
+function setMapOptionsData(data, audioFile)
 	currentSongData = data
+
+	if audioFile then currentSongFilename = audioFile end
 	
 	songMaps = getListOfMaps()
 	songMaps[#songMaps + 1] = "Create..."
@@ -81,7 +84,11 @@ function updateMapSongsSelect()
 		if selecting == "option" then
 			if aPressed or rightPressed then
 				sfx.switch:play()
-				-- do stuff here
+				
+				if mapOptions[optionSelectionRounded] == "Edit" then
+					initializeChartEditor(currentSongFilename, currentSongData)
+					return "chart"
+				end
 			elseif bPressed or leftPressed then
 				sfx.switch:play()
 				selecting = "map"

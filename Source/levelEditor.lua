@@ -5,6 +5,7 @@ import "editor/songs"
 import "editor/songData"
 import "editor/reload"
 import "editor/maps"
+import "editor/chart"
 
 -- define constants
 local pd <const> = playdate
@@ -39,6 +40,8 @@ function updateLevelEditor()
 		editorState = updateSongDataEditor()
 	elseif editorState == "songMaps" then
 		editorState = updateMapSongsSelect()
+	elseif editorState == "chart" then
+		editorState = updateChartEditor()
 	elseif editorState == "reload" then
 		editorState = updateReloadMenu()
 	elseif editorState == "title" then
@@ -62,6 +65,8 @@ function drawLevelEditor()
 		drawSongDataEditor()
 	elseif editorState == "songMaps" then
 		drawMapSongsSelect()
+	elseif editorState == "chart" then
+		drawChartEditor()
 	elseif editorState == "reload" then
 		gfx.clear()
 		drawReloadMenu()
