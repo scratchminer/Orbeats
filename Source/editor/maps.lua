@@ -86,7 +86,7 @@ function updateMapSongsSelect()
 				sfx.switch:play()
 				
 				if mapOptions[optionSelectionRounded] == "Edit" then
-					initializeChartEditor(currentSongFilename, currentSongData)
+					initializeChartEditor(currentSongFilename, currentSongData, songMaps[mapSelectionRounded])
 					return "chart"
 				end
 			elseif bPressed or leftPressed then
